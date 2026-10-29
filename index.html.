@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shirwac Gym</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--ink:#111827;--mute:#6b7280;--g:#12a36b;--on-g:#fff;--navy:#151b2e;--on-navy:#fff;--pu:#7c3aed;--line:#e5e7eb;--soft:#eef1f5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f141b;--card:#1a212b;--ink:#f1f5f9;--mute:#94a3b8;--g:#2fd08e;--on-g:#06241a;--navy:#0a0e18;--line:#2a3340;--soft:#232c38}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f141b;--card:#1a212b;--ink:#f1f5f9;--mute:#94a3b8;--g:#2fd08e;--on-g:#06241a;--navy:#0a0e18;--line:#2a3340;--soft:#232c38}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+#v{max-width:520px;margin:0 auto;padding:18px 18px 110px}
+h1{font-size:2rem;line-height:1.1;margin:2px 0 18px;font-weight:800}
+h1 em{font-style:normal;color:var(--g)}
+h2{font-size:1.6rem;margin:0;font-weight:800}
+h3{margin:0;font-size:1.1rem}
+.sm{color:var(--mute);font-size:.85rem;margin:0}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible{outline:3px solid var(--g);outline-offset:2px}
+.card{background:var(--card);border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.navy{background:var(--navy);color:var(--on-navy)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pill{background:rgba(255,255,255,.14);color:inherit;border:0;border-radius:999px;padding:10px 16px;font-weight:700}
+.macros{flex:1;display:grid;gap:10px}
+.mac .row{font-size:.85rem;font-weight:700}
+.bar{height:7px;border-radius:9px;background:rgba(255,255,255,.15);margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:9px}
+.ring{width:112px;height:112px;position:relative;flex:none}
+.ring b{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.6rem}
+.ring small{font-size:.65rem;opacity:.7;font-weight:400}
+.hero{border-radius:22px;padding:20px;margin-bottom:14px;color:#fff;background:linear-gradient(135deg,#a78bfa,#7c3aed)}
+.hero.gr{background:linear-gradient(135deg,#34d399,#059669)}
+.hero h2{margin:6px 0 8px;font-size:2rem}
+.play{width:54px;height:54px;border-radius:50%;border:0;background:#fff;color:#7c3aed;font-size:1.3rem}
+.btnw{background:#fff;color:#059669;border:0;border-radius:14px;padding:12px 18px;font-weight:800;margin-top:10px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tri button{background:var(--card);border:0;border-radius:20px;padding:16px 6px;font-weight:700;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.tri span{display:block;font-size:1.6rem;margin-bottom:4px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px}
+.chips button{flex:none;border:2px solid transparent;background:var(--soft);border-radius:16px;padding:10px 14px;font-weight:700;color:var(--mute)}
+.chips button[aria-pressed="true"]{background:var(--g);color:var(--on-g)}
+.chips button.today{border-color:var(--g)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tile{background:var(--card);border:2px solid transparent;border-radius:20px;padding:18px 14px;min-height:92px;font-weight:800;font-size:1.05rem;text-align:left;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.tile small{display:block;font-weight:400;color:var(--mute)}
+.tile[aria-pressed="true"]{border-color:var(--g);background:var(--soft)}
+.list{margin:12px 0 0;padding:0;list-style:none}
+.list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.list li:last-child{border:0}
+.go{width:100%;border:0;background:var(--g);color:var(--on-g);border-radius:16px;padding:15px;font-weight:800;font-size:1rem;margin-top:12px}
+.go[disabled]{opacity:.45}
+.go.ghost{background:var(--soft);color:var(--ink)}
+.mk{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.mk input,.txt{width:100%;border:2px solid var(--line);border-radius:12px;padding:11px;background:var(--bg);color:var(--ink);font:inherit}
+.mk label{font-size:.8rem;color:#cbd5e1}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav div{display:flex;width:100%;max-width:520px}
+nav button{flex:1;border:0;background:none;padding:10px 0 12px;color:var(--mute);font-size:.78rem;font-weight:700}
+nav button span{display:block;font-size:1.4rem}
+nav button[aria-current="true"]{color:var(--g)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9;display:flex;align-items:flex-end;justify-content:center;padding-top:env(safe-area-inset-top,0px)}
+.sheet{background:var(--card);width:100%;max-width:520px;border-radius:26px 26px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom,0px));max-height:90%;overflow-y:auto}
+.clock{font-size:3.4rem;font-weight:800;text-align:center;margin:8px 0}
+.lock{text-align:center}
+.lock .price{font-size:2.2rem;font-weight:800;color:var(--g)}
+a.go{display:block;text-align:center;text-decoration:none}
+@media (prefers-reduced-motion:no-preference){.ring circle.v{transition:stroke-dashoffset .6s}}
+</style>
+</head>
+<body>
+<div id="v"></div>
+<nav><div id="nav"></div></nav>
+<div id="ov"></div>
+<script>
+/* ===== SETTINGS: beddel halkan marka aad rabto inaad lacag ka qaadato ===== */
+var CFG={free:true,price:'$3 bishii',wa:'252000000000'};
+/* free:true = dadka oo dhan bilaash. free:false = Qorshaha iyo jimicsiga waxay u baahan yihiin lacag. */
+
+var FOC={
+chest:['Laabta',[['Push-up',6],['Bench press',10],['Dumbbell fly',5]]],
+back:['Dhabarka',[['Pull-up',7],['Row',8],['Lat pulldown',8]]],
+shoulders:['Garbaha',[['Shoulder press',8],['Lateral raise',6],['Face pull',6]]],
+arms:['Gacmaha',[['Biceps curl',8],['Triceps dip',7],['Hammer curl',6]]],
+legs:['Lugaha',[['Squat',8],['Lunge',7],['Deadlift',10]]],
+abs:['Caloosha',[['Crunch',5],['Plank',3],['Leg raise',5],['Russian twist',4]]],
+full:['Jirka oo dhan',[['Jumping jacks',3],['Push-up',5],['Squat',6],['Plank',3],['Burpee',5]]],
+cardio:['Cardio',[['Orod fudud',10],['Jumbaha xadhigga',8],['Jaranjarada',7]]]
+};
+var DAYS=['Sab','Axa','Isn','Tal','Arb','Kha','Jim'],FULLN=['Sabti','Axad','Isniin','Talaado','Arbaco','Khamiis','Jimce'],JS=[6,0,1,2,3,4,5];
+var TODAY=JS.indexOf(new Date().getDay());
+var P={name:'',cal:{k:0,p:0,c:0,f:0},plan:{0:['arms'],1:['chest'],2:['legs'],3:['back'],4:['abs'],5:['full'],6:[]},done:0};
+try{var raw=localStorage.getItem('bir');if(raw){var o=JSON.parse(raw);for(var k in o)P[k]=o[k]}}catch(e){}
+function save(){try{localStorage.setItem('bir',JSON.stringify(P))}catch(e){}}
+var S={tab:'home',day:TODAY,add:false,lib:null,sheet:null,pay:false,play:null};
+var timer=null;
+var $v=document.getElementById('v'),$o=document.getElementById('ov'),$n=document.getElementById('nav');
+
+function locked(){return !CFG.free}
+function mins(keys){var t=0;(keys||[]).forEach(function(k){FOC[k][1].forEach(function(e){t+=e[1]})});return t}
+function names(keys){return keys.map(function(k){return FOC[k][0]}).join(', ')}
+function cnt(keys){var t=0;(keys||[]).forEach(function(k){t+=FOC[k][1].length});return t}
+function fmt(s){var m=Math.floor(s/60),r=s%60;return (m<10?'0':'')+m+':'+(r<10?'0':'')+r}
+function greet(){var h=new Date().getHours();return h<12?'Subax wanaagsan':h<18?'Galab wanaagsan':'Habeen wanaagsan'}
+function mac(label,v,max,col){var w=Math.min(100,v/max*100);return '<div class="mac"><div class="row"><span>'+label+'</span><span>'+v+'/'+max+'g</span></div><div class="bar"><i style="width:'+w+'%;background:'+col+'"></i></div></div>'}
+
+function home(){
+var c=P.cal,goal=2600,left=Math.max(0,goal-c.k),off=326.7*(1-Math.min(1,c.k/goal)),keys=P.plan[TODAY]||[];
+var h='<p class="sm">'+FULLN[TODAY]+'</p><h1>'+greet()+',<br><em>'+(P.name||'saaxiib')+'</em></h1>';
+h+='<div class="card navy"><div class="row"><div><h3>Cuntada Maanta</h3><p class="sm" style="color:#94a3b8">Kaloriyada iyo macroyada</p></div><button class="pill" data-a="add">+ Ku dar</button></div>';
+h+='<div class="row" style="margin-top:16px;gap:18px"><div class="ring"><svg viewBox="0 0 120 120" width="112" height="112"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="10"/><circle class="v" cx="60" cy="60" r="52" fill="none" stroke="#34d399" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="'+off+'" transform="rotate(-90 60 60)"/></svg><b>'+c.k+'<small>/ '+goal+' kcal</small></b></div>';
+h+='<div class="macros">'+mac('Borotiin',c.p,150,'#60a5fa')+mac('Carbs',c.c,280,'#fbbf24')+mac('Baruur',c.f,80,'#fb7185')+'</div></div>';
+h+='<p class="sm" style="color:#34d399;margin-top:10px;font-weight:700">'+left+' kcal ayaa hadhay</p>';
+if(S.add)h+='<div class="mk"><div><label for="ik">Kcal</label><input id="ik" type="number" inputmode="numeric"></div><div><label for="ip">Borotiin g</label><input id="ip" type="number" inputmode="numeric"></div><div><label for="ic">Carbs g</label><input id="ic" type="number" inputmode="numeric"></div><div><label for="if">Baruur g</label><input id="if" type="number" inputmode="numeric"></div></div><button class="go" data-a="saveCal">Kaydi cuntada</button>';
+h+='</div>';
+if(keys.length)h+='<div class="hero"><div class="row"><div><p class="sm" style="color:#ede9fe">'+FULLN[TODAY]+'</p><h2>'+names(keys)+'</h2><p class="sm" style="color:#ede9fe">'+cnt(keys)+' jimicsi · '+mins(keys)+' daqiiqo</p></div><button class="play" data-a="play" data-v="'+TODAY+'" aria-label="Bilow jimicsiga">▶</button></div></div>';
+else h+='<div class="hero gr"><h2>Maanta waa nasasho</h2><p class="sm" style="color:#d1fae5">Ku dar jimicsi Qorshaha.</p></div>';
+h+='<div class="tri"><button data-a="tab" data-v="lib"><span>🏋️</span>Maktabadda</button><button data-a="tab" data-v="plan"><span>📅</span>Qorshaha</button><button data-a="tab" data-v="me"><span>👤</span>Akoon</button></div>';
+return h}
+
+function lib(){
+if(S.lib){var d=FOC[S.lib];return '<button class="chips" style="background:none;border:0;color:var(--g);font-weight:700;padding:0 0 10px" data-a="lib" data-v="">← Dib u noqo</button><div class="card"><h2>'+d[0]+'</h2><p class="sm">'+mins([S.lib])+' daqiiqo</p><ul class="list">'+d[1].map(function(e){return '<li><span>'+e[0]+'</span><b>'+e[1]+' daq</b></li>'}).join('')+'</ul><button class="go" data-a="play" data-v="k:'+S.lib+'">Bilow jimicsiga</button></div>'}
+var h='<h1>Maktabadda</h1><p class="sm" style="margin:-10px 0 14px">Dooro muruqa aad rabto.</p><div class="grid2">';
+Object.keys(FOC).forEach(function(k){h+='<button class="tile" data-a="lib" data-v="'+k+'">'+FOC[k][0]+'<small>'+mins([k])+' daqiiqo</small></button>'});
+return h+'</div>'}
+
+function plan(){
+var keys=P.plan[S.day]||[],pct=Math.min(100,Math.round(P.done/11*100));
+var h='<div class="row" style="margin-bottom:12px"><h1 style="margin:0">Qorshaha</h1><button class="pill" style="background:var(--g);color:var(--on-g)" data-a="sheet">+ Samee</button></div><div class="chips">';
+DAYS.forEach(function(d,i){h+='<button data-a="day" data-v="'+i+'" aria-pressed="'+(S.day==i)+'" class="'+(i==TODAY?'today':'')+'">'+d+'</button>'});
+h+='</div>';
+if(keys.length)h+='<div class="hero gr"><p class="sm" style="color:#d1fae5">'+FULLN[S.day]+'</p><h2>'+names(keys)+'</h2><p class="sm" style="color:#d1fae5">'+cnt(keys)+' jimicsi · '+mins(keys)+' daqiiqo</p><button class="btnw" data-a="play" data-v="'+S.day+'">▶ Bilow jimicsiga</button></div>';
+else h+='<div class="card"><h3>Maalintan waa nasasho</h3><p class="sm">Taabo + Samee si aad jimicsi ugu darto.</p></div>';
+h+='<div class="card row" style="gap:16px"><b style="font-size:1.8rem;color:var(--g)">'+pct+'%</b><div><h3>Horumarka toddobaadka</h3><p class="sm">'+Math.min(P.done,11)+'/11 dhammaystiran</p></div></div>';
+return h}
+
+function me(){
+return '<h1>Akoon</h1><div class="card"><label class="sm" for="nm">Magacaaga</label><input class="txt" id="nm" value="'+(P.name||'').replace(/"/g,'')+'" maxlength="20"><p class="sm" style="margin-top:14px">Xaaladda</p><h3>'+(CFG.free?'Bilaash hadda ✓':'Premium · '+CFG.price)+'</h3></div><div class="card"><h3>La wadaag saaxiibada</h3><p class="sm">Ku dar saaxiibadaada link-ga si ay u tababaraan.</p><button class="go" data-a="share">La wadaag link-ga</button></div>'}
+
+function sheet(){
+var s=S.sheet,h='<div class="ov" data-a="x"><div class="sheet" data-a="stay"><h2>Dhis toddobaadkaaga</h2><p class="sm">Dooro maalinta, kadibna noocyada.</p><div class="chips" style="margin-top:12px">';
+DAYS.forEach(function(d,i){h+='<button data-a="shDay" data-v="'+i+'" aria-pressed="'+(s.day==i)+'">'+d+'</button>'});
+h+='</div><div class="grid2">';
+Object.keys(FOC).forEach(function(k){h+='<button class="tile" data-a="shPick" data-v="'+k+'" aria-pressed="'+(s.pick.indexOf(k)>-1)+'">'+FOC[k][0]+'</button>'});
+return h+'</div><button class="go" data-a="shSave">Kaydi '+FULLN[s.day]+'</button></div></div>'}
+
+function pay(){return '<div class="ov" data-a="x"><div class="sheet lock" data-a="stay"><h2>Qorshaha Premium</h2><p class="sm">Jimicsiyada, qorshaha iyo raadraaca horumarka.</p><p class="price">'+CFG.price+'</p><a class="go" href="https://wa.me/'+CFG.wa+'?text=Waxaan%20rabaa%20Premium">Ku bixi WhatsApp</a><button class="go ghost" data-a="x">Hadda maya</button></div></div>'}
+
+function player(){
+var p=S.play;
+return '<div class="ov" data-a="stay2"><div class="sheet" data-a="stay"><h2>'+p.title+'</h2><div class="clock" id="clk">'+fmt(p.left)+'</div><ul class="list">'+p.list.map(function(e){return '<li><span>'+e[0]+'</span><b>'+e[1]+' daq</b></li>'}).join('')+'</ul><button class="go" id="run" data-a="run">'+(p.run?'Jooji':'Bilow')+'</button><button class="go ghost" data-a="fin">Dhammaystir</button><button class="go ghost" data-a="x">Xidh</button></div></div>'}
+
+function render(){
+$v.innerHTML=({home:home,lib:lib,plan:plan,me:me})[S.tab]();
+var T=[['home','🏠','Guri'],['lib','🏋️','Maktabad'],['plan','📅','Qorshe'],['me','👤','Akoon']];
+$n.innerHTML=T.map(function(t){return '<button data-a="tab" data-v="'+t[0]+'"'+(S.tab==t[0]?' aria-current="true"':'')+'><span>'+t[1]+'</span>'+t[2]+'</button>'}).join('');
+$o.innerHTML=S.play?player():S.pay?pay():S.sheet?sheet():'';
+}
+function stopT(){if(timer){clearInterval(timer);timer=null}}
+function close(){stopT();S.play=null;S.pay=false;S.sheet=null;render()}
+function val(id){return Math.max(0,parseInt(document.getElementById(id).value,10)||0)}
+
+document.addEventListener('click',function(e){
+var t=e.target.closest('[data-a]');if(!t)return;
+var a=t.dataset.a,v=t.dataset.v;
+if(a=='stay'){return}
+if(a=='stay2'){return}
+if(a=='x'){if(e.target.closest('.sheet')&&!e.target.closest('button'))return;close();return}
+if(a=='tab'){S.tab=v;S.lib=null;S.add=false;render();window.scrollTo(0,0)}
+else if(a=='day'){S.day=+v;render()}
+else if(a=='add'){S.add=!S.add;render()}
+else if(a=='saveCal'){P.cal.k+=val('ik');P.cal.p+=val('ip');P.cal.c+=val('ic');P.cal.f+=val('if');save();S.add=false;render()}
+else if(a=='lib'){S.lib=v||null;render()}
+else if(a=='sheet'){if(locked()){S.pay=true}else{S.sheet={day:S.day,pick:(P.plan[S.day]||[]).slice()}}render()}
+else if(a=='shDay'){S.sheet.day=+v;S.sheet.pick=(P.plan[+v]||[]).slice();render()}
+else if(a=='shPick'){var i=S.sheet.pick.indexOf(v);if(i>-1)S.sheet.pick.splice(i,1);else S.sheet.pick.push(v);render()}
+else if(a=='shSave'){P.plan[S.sheet.day]=S.sheet.pick;save();S.day=S.sheet.day;S.sheet=null;render()}
+else if(a=='play'){
+if(locked()){S.pay=true;render();return}
+var list,title;if(v.indexOf('k:')==0){var k=v.slice(2);list=FOC[k][1];title=FOC[k][0]}else{var ks=P.plan[+v]||[];list=[];ks.forEach(function(k){list=list.concat(FOC[k][1])});title=names(ks)}
+var tot=0;list.forEach(function(e){tot+=e[1]});S.play={title:title,list:list,left:tot*60,run:false};render()}
+else if(a=='run'){var p=S.play;if(p.run){stopT();p.run=false;t.textContent='Bilow'}else{p.run=true;t.textContent='Jooji';timer=setInterval(function(){p.left--;var c=document.getElementById('clk');if(c)c.textContent=fmt(Math.max(0,p.left));if(p.left<=0){stopT();p.run=false;if(c)c.textContent='Waa dhammaaday!';var r=document.getElementById('run');if(r)r.textContent='Bilow'}},1000)}}
+else if(a=='fin'){P.done++;save();close()}
+else if(a=='share'){var u=location.href;try{if(navigator.share){navigator.share({title:'Shirwac Gym',url:u})}else{navigator.clipboard.writeText(u);t.textContent='Link-ga waa la koobiyeeyay ✓'}}catch(x){}}
+});
+document.addEventListener('change',function(e){if(e.target.id=='nm'){P.name=e.target.value.trim();save()}});
+render();
+</script>
+</body>
+</html>
